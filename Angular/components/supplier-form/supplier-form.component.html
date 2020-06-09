@@ -1,0 +1,90 @@
+<app-nav></app-nav>
+<!--Begin row form-->
+<div class="row mt-3">
+    <div class="col-md-12">
+        <div *ngIf="showSpinner" class="sk-circle">
+            <div class="sk-circle1 sk-child"></div>
+            <div class="sk-circle2 sk-child"></div>
+            <div class="sk-circle3 sk-child"></div>
+            <div class="sk-circle4 sk-child"></div>
+            <div class="sk-circle5 sk-child"></div>
+            <div class="sk-circle6 sk-child"></div>
+            <div class="sk-circle7 sk-child"></div>
+            <div class="sk-circle8 sk-child"></div>
+            <div class="sk-circle9 sk-child"></div>
+            <div class="sk-circle10 sk-child"></div>
+            <div class="sk-circle11 sk-child"></div>
+            <div class="sk-circle12 sk-child"></div>
+          </div>
+        <!--Begin container-->
+        <div *ngIf="showForm" class="wrapForm rounded">
+            <div class="titleContainer">
+                <span>Proveedor</span>
+            </div>
+            <!--Begin form for add and update-->
+            <form #supplierForm = "ngForm" (ngSubmit)="updateAddSupplier(supplierForm)">
+                <div class="form-group">
+                    <input [(ngModel)]="supplier.id" 
+                           *ngIf ="!isEmptyId()" 
+                           class="form-control" 
+                           type="text" 
+                           name="supplierId" 
+                           disabled>
+                </div>
+                <div class="form-group">
+                    <input [(ngModel)]="supplier.numberExtern" 
+                           class="form-control" 
+                           type="text" 
+                           name="numberExtern" 
+                           placeholder="Numero externo">
+                </div>
+                <div class="form-group">
+                    <input [(ngModel)]="supplier.name"
+                           [class.is-invalid]="name.invalid && name.touched"
+                           required
+                           #name="ngModel" 
+                           class="form-control" 
+                           type="text" 
+                           name="name" 
+                           placeholder="Nombre de proveedor">
+                    <small class="text-warning" 
+                           *ngIf="name.invalid && name.touched">
+                           Nombre requerido
+                    </small>
+                </div>
+                <div class="form-group">
+                    <input [(ngModel)]="supplier.address" 
+                           class="form-control" 
+                           type="text" 
+                           name="address" 
+                           placeholder="Direccion">
+                </div>
+                <div class="form-group">
+                    <input [(ngModel)]="supplier.telephone" 
+                           class="form-control" 
+                           type="text" 
+                           name="telephone" 
+                           placeholder="Telefono">
+                </div>
+                <div class="form-group">
+                    <input [(ngModel)]="supplier.email"
+                           [class.is-invalid]="email.invalid && email.touched"
+                           required
+                           #email="ngModel" 
+                           email="true"
+                           class="form-control" 
+                           type="mail" 
+                           name="email" 
+                           placeholder="Email">
+                    <small class="text-warning" 
+                           *ngIf="email.invalid && email.touched">
+                           Email invalido
+                    </small>
+                </div>
+                <button class="btn buttonSubmit" type="submit">Enviar</button>
+            </form>
+            <!--Ends form-->
+        <!--Ends container-->
+    </div>
+</div>
+<!--Ends row form-->
