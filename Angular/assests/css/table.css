@@ -1,0 +1,69 @@
+@media 
+only screen and (max-width: 819px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+
+	/* Force table to not be like tables anymore */
+	table, thead, tbody, th, td, tr { 
+		display: block; 
+    }
+	
+	/* Hide table headers (but not display: none;, for accessibility) */
+	thead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+	
+	tr { 
+        border: 1px solid #576067bd;
+    } 
+	
+    #rwd-table td { 
+		/* Behave  like a "row" */
+        text-align: center;
+        position: relative;
+    }
+
+    #tdExNumber {
+        border: none;
+        display: inline-block;
+    }
+
+    #supplierN {
+        display: inline-block;
+    }
+
+    
+    /* #rwd-table td:nth-of-type(1):before { 
+        content: "Id: ";
+    }
+    #rwd-table td:nth-of-type(2):before { 
+        content: "Nro Externo: ";
+    }
+    #rwd-table td:nth-of-type(3):before { 
+        content: "Nombre: ";
+    }
+    #rwd-table td:nth-of-type(4):before { 
+        content: "Tipo: ";
+    }
+    #rwd-table td:nth-of-type(5):before { 
+        content: "Descripcion: ";
+    }
+    #rwd-table td:nth-of-type(6):before { 
+        content: "Foto: ";
+    }
+    #rwd-table td:nth-of-type(7):before { 
+        content: "Id proveedor: ";
+    }
+    #rwd-table td:nth-of-type(8):before { 
+        content: "Nombre Proveedor: ";
+    }
+    #rwd-table td:nth-of-type(9):before { 
+        content: "Modificar: ";
+    }
+    #rwd-table td:nth-of-type(10):before { 
+        content: "Eliminar: ";
+    } */
+	
+	
+}
