@@ -1,0 +1,208 @@
+<app-nav></app-nav>
+
+<!--Begin title-->
+<div class="row">
+    <div class="col-md-12 d-flex justify-content-start">
+        <strong class="title">Productos</strong>
+    </div>	
+</div>
+<!--Ends title-->
+
+
+<!--Begin row modal-->
+<div class="row">
+    <!--Begin col modal-->
+    <div class="col-md-12 d-flex justify-content-start">
+        <!--Begin panel button-->
+        <button [disabled]="!addButton" 
+                 id="addp" 
+                 type="button" 
+                 class="btn btn-dark border border-secondary btn-sm mt-2"
+                 routerLink = "/product-form" 
+                 [queryParams]="{supplierId: supplierId, productId: ''}">
+                 Agregar producto
+        </button>
+        <!--Button trigger modal-->
+        <button id="bId" 
+                type="button" 
+                class="btn btn-dark border border-secondary btn-sm mt-2" 
+                data-toggle="modal" 
+                data-target="#formId">
+                Buscar  por id
+        </button>
+        <button id="bId" 
+                type="button" 
+                class="btn btn-dark border border-secondary btn-sm mt-2" 
+                (click)="getProductsButton()">
+                Todos los productos
+        </button>
+        <button id="bId" 
+                type="button" 
+                class="btn btn-dark border border-secondary btn-sm mt-2" 
+                (click)="changeView()">
+                Cambiar vista
+        </button>
+        <!--Ends panel button-->
+
+        <!--Begin modal form-->
+        <div class="modal fade bg" id="formId" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div [hidden]="showForm" class="modal-content bg-dark text-white">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Buscar producto por id</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span class="text-white" aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form #productForm = "ngForm" (ngSubmit)="getProductById(productForm)" >
+                            <div class="form-group">
+                                <label for="productId">Id del producto</label>
+                                <input ngModel type="number" class="form-control form-control-sm" id="productId" name="productId">
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-sm mr-2">Buscar</button>
+                            <button #closeModal type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
+                        </form>
+                    </div>
+                </div>
+                <!--Snippets loading begin-->
+                <div *ngIf="showSpinners" class="align-self-center" role="status" id="spinnersContent">
+                    <div class="spinnersSubContent">
+                        <span class="spinner-grow text-primary float-left"></span>
+                        <span class="spinner-grow text-warning float-left"></span>
+                        <span class="spinner-grow text-danger"></span>
+                    </div>
+                    <div *ngIf="showSpinners" class="loadText">
+                        <span class="d-flex justify-content-center text-white">Searching...</span>
+                    </div>
+                </div>
+                <!--Snippets loading ends-->
+            </div>
+        </div>
+        <!--Ends form modal-->
+    </div>
+    <!--Ends col-->
+</div>
+<!--Ends row-->
+
+<!--Begin row-->
+<div class="row">
+    <div class="col-md-11" id="tableParams">
+        <!--Begin panel search--> 
+        <table class="table table-sm table-dark m-auto">
+            <tbody>
+                <tr class="row m-auto">
+                    <td class="col-sm-4">
+                        <label for="productName">Nombre del producto</label>
+                        <input (keyup)="getProductByName($event)" 
+                               type="text" 
+                               class="form-control form-control-sm" 
+                               id="productName" 
+                               name="productName">
+                    </td>
+                    <td class="col-sm-4" id="tdExNumber">
+                        <label for="numberExtern">Nro externo</label>
+                        <input (keyup)="getProductByNumber($event)" 
+                               type="text" 
+                               class="form-control form-control-sm" 
+                               id="exNumber" 
+                               name="numberExtern">
+                    </td>
+                    <td class="col-sm-4" id="tdTypes">
+                        <label for="productType">Tipo de producto</label><br>
+                        <select class="custom-select custom-select-sm" 
+                                id="productType" 
+                                name="productType" 
+                                [disabled]="types?.length === 0"
+                                (change)="getProductByType($event)">
+                                <option value=""></option>
+                                <option [value]="type" *ngFor="let type of types">{{type}}</option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!--Ends panel search-->
+    </div>	
+</div>
+<!--Ends row-->
+
+
+<!--Begin row-->
+<div *ngIf="!listView" class="row">
+    <div class="col-md-11" id="table">
+        <!--Begin table products-->
+        <table class="table table-sm table-striped table-dark" id="rwd-table">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Nro externo</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Tipo</th>
+                    <th scope="col">Descripcion</th>
+                    <th scope="col">Foto</th>
+                    <th scope="col">Id proveedor</th>
+                    <th scope="col">Nombre proveedor</th>
+                    <th scope="col">Modificar</th>
+                    <th scope="col">Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let product of products">
+                    <td class="font-weight-bold">{{product.id}}</td>
+                    <td>{{product.numberExtern}}</td>
+                    <td>{{product.name}}</td>
+                    <td>{{product.type}}</td>
+                    <td>
+                        <a class="btn btn-sm btn-info" 
+                           ngbPopover= {{product.description}}
+                           popoverTitle="Descripcion" 
+                           popoverClass="popoverC"> 
+                           Ver descripcion
+                        </a>
+                    </td>
+                    <td><a class="photo" [href]="product.photo"><i class="fas fa-tshirt"></i></a></td>
+                    <td class="font-weight-bold">{{product.supplierId}}</td>
+                    <td>{{product.supplierName}}</td>
+                    <td>
+                        <a class="btn btn-sm btn-warning text-dark" 
+                           routerLink = "/product-form" 
+                           [queryParams]="{productId: product.id}">
+                           <i class="fas fa-highlighter"></i> 
+                           Modificar
+                        </a>
+                    </td>
+                    <td>
+                        <a class="btn btn-sm btn-danger" 
+                           (click)= "areYouSure(product.id)">
+                           <i class="far fa-trash-alt"></i> 
+                           Eliminar
+                        </a>  
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!--Ends table products-->
+    </div>
+</div>
+<!--Ends row-->
+
+<!--Begin row list cards-->
+<div *ngIf="listView" class="row">
+    <div [ngClass]="{bigEntrance: enter}" class="col-8 col-sm-5 col-md-3 col-lg-3 col-xl-2 card bg-dark text-white" id="cards"  *ngFor="let product of products">
+        <img class="card-img-top" [src]="isUknownProduct(product.photo)" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">{{product.name}}</h5>
+            <p class="card-text">{{product.description.substring(30,-1)}}...</p>
+            <a class="btn btn-sm btn-primary mr-1" 
+               routerLink = "/product-form" 
+               [queryParams]="{productId: product.id}">
+               Modificar
+            </a>
+            <a class="btn btn-sm btn-danger" (click)= "areYouSure(product.id)">
+                <i class="far fa-trash-alt"></i>
+            </a>
+        </div>
+    </div>
+</div>
+<!--List cards ends-->
