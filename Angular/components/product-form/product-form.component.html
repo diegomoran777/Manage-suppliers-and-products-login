@@ -1,0 +1,105 @@
+<app-nav></app-nav>
+<!--Begin row form-->
+<div class="row mt-3">
+    <div class="col-md-12">
+        <div *ngIf="showSpinner" class="sk-circle">
+            <div class="sk-circle1 sk-child"></div>
+            <div class="sk-circle2 sk-child"></div>
+            <div class="sk-circle3 sk-child"></div>
+            <div class="sk-circle4 sk-child"></div>
+            <div class="sk-circle5 sk-child"></div>
+            <div class="sk-circle6 sk-child"></div>
+            <div class="sk-circle7 sk-child"></div>
+            <div class="sk-circle8 sk-child"></div>
+            <div class="sk-circle9 sk-child"></div>
+            <div class="sk-circle10 sk-child"></div>
+            <div class="sk-circle11 sk-child"></div>
+            <div class="sk-circle12 sk-child"></div>
+          </div>
+        <!--Begin container-->
+        <div *ngIf="showForm" class="wrapForm rounded">
+            <div class="titleContainer">
+                <span>Producto</span>
+            </div>
+            <!--Begin form for add and update product-->
+            <form #productForm = "ngForm" (ngSubmit)="updateAddProduct(productForm)">
+                <div class="form-group">
+                    <input [(ngModel)]="product.supplierId"
+                           class="form-control" 
+                           type="text" 
+                           name="supplierId" 
+                           disabled>
+                </div>
+                <div class="form-group">
+                    <input [(ngModel)]="product.id"
+                           *ngIf ="!isEmptyId()"
+                           class="form-control" 
+                           type="text" 
+                           name="productId" 
+                           disabled>
+                </div>
+                <div class="form-group">
+                    <input [(ngModel)]="product.supplierName"
+                           class="form-control" 
+                           type="text" 
+                           name="supplierName" 
+                           disabled>
+                </div>
+                <div class="form-group">
+                    <input [(ngModel)]="product.numberExtern"
+                           class="form-control" 
+                           type="text" 
+                           name="numberExtern" 
+                           placeholder="Numero externo">
+                </div>
+                <div class="form-group">
+                    <input [(ngModel)]="product.name"
+                           [class.is-invalid]="name.invalid && name.touched"
+                           required
+                           #name="ngModel"
+                           class="form-control" 
+                           type="text" 
+                           name="productName" 
+                           placeholder="Nombre de producto">
+                    <small class="text-warning"
+                            *ngIf="name.invalid && name.touched">
+                            Nombre requerido
+                    </small>
+                </div>
+                <div class="form-group">
+                    <input [(ngModel)]="product.type"
+                           [class.is-invalid]="type.invalid && type.touched"
+                           required
+                           #type="ngModel"
+                           [(ngModel)]="product.type"
+                           class="form-control" 
+                           type="text" 
+                           name="productType" 
+                           placeholder="Tipo de producto">
+                    <small class="text-warning"
+                           *ngIf="type.invalid && type.touched">
+                           Tipo requerido
+                    </small>
+                </div>
+                <div class="form-group">
+                    <input [(ngModel)]="product.description"
+                           class="form-control" 
+                           type="text" 
+                           name="description" 
+                           placeholder="Descripcion">
+                </div>
+                <div class="form-group">
+                    <input [(ngModel)]="product.photo"
+                           class="form-control" 
+                           type="text" 
+                           name="photo" 
+                           placeholder="Foto">
+                </div>
+                <button class="btn buttonSubmit" type="submit">Enviar</button>
+            </form>
+            <!--Ends form-->
+        </div>
+        <!--Ends container-->
+    </div>
+</div>
+<!--Ends row form-->
