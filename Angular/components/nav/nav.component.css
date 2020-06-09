@@ -1,0 +1,21 @@
+nav.navbar {
+    background-color: #3f51b5cc;
+}
+
+.col-md-12 {
+	padding-right: 0px;
+}
+
+#userName {
+    font-weight: bold;
+}
+
+#logOut {
+    font-weight: bold;
+}
+
+@media (max-width: 575.98px) { 
+    #userName {
+        display: none;
+    }
+}
