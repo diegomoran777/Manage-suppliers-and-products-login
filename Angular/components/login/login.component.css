@@ -1,0 +1,176 @@
+.containerForm {
+	height: 100vh;
+	margin: auto;
+    padding: 15px;
+}
+
+.wrap {
+	position: relative;
+    top: 7%;
+    height: 87vh;
+    background-color: white;
+    width: 50%;
+    margin: auto;
+    box-shadow: 1px 5px 36px 2px #474e54;
+    display: block;
+}
+
+.image {
+	background-image: url("./../../../assets/images/desk4.jpg");
+	height: 33vh;
+	border-radius: 3px 3px 0px 0px;
+}
+
+form {
+	position: relative;
+    top: 14%;
+    width: 53%;
+    margin: auto;
+    left: 4%;
+}
+
+body {
+	background-color: #8080809e;
+}
+
+input {
+	outline: none;
+	border-left: none;
+	border-right: none;
+	border-top: none;
+	width: 100%;
+	font-family: Poppins-Regular;
+    font-size: 19px;
+    color: #555555;
+    line-height: 1.2;
+    border-bottom: 2px solid #9a95959c;
+}
+
+input:focus {
+  border-bottom: 2px solid #9c27b085;
+}
+
+span {
+	color: white;
+	font-size: 34px;
+    font-weight: bold;
+}
+
+.title {
+	margin: auto;
+	text-align: center;
+	position: relative;
+	top: 34%;
+}
+
+.btn {
+	background-color: #9c27b09c;
+	color: white;
+	position: relative;
+	left: 6%;
+}
+
+.btn:hover {
+	background-color: #9c27b0c4;
+	color: white;
+}
+
+.form-group {
+	margin-left: 1rem;
+	margin-bottom: 2rem;
+	width: 100%;
+}
+
+.userLabel {
+	font-family: Poppins-Regular;
+    font-size: 19px;
+    color: #808080;
+    line-height: 1.2;
+    text-align: right;
+    position: absolute;
+    top: 1px;
+    left: -92px;
+    width: 80px;
+}
+
+.passLabel {
+	font-family: Poppins-Regular;
+    font-size: 19px;
+    color: #808080;
+    line-height: 1.2;
+    text-align: right;
+    position: absolute;
+    top: 60px;
+    left: -92px;
+    width: 80px
+}
+
+@media screen and (max-width: 2561px) {
+	.wrap {
+		width: 38%;
+	}
+}
+
+@media (max-width: 991.98px) { 
+	.wrap {
+		width: 60%;
+	}
+}
+
+@media (max-width: 767.98px) { 
+	.wrap {
+		height: 66vh;
+	}
+
+	.image {
+		height: 25vh;
+	}
+	
+}
+
+@media (max-width: 575.98px) {
+	.passLabel {
+		position: initial;
+		width: 61px;
+	}
+
+	.userLabel {
+		position: initial;
+		width: 50px;
+	}
+
+	.wrap {
+		width: 84%;
+		height: 73%;
+	}
+
+	form {
+		left: 0%;
+		top: 4%;
+	}
+
+	.btn {
+		left: 9%;
+	}
+
+	.image {
+		height: 36%;
+	}
+
+}
+
+@media (min-height: 768px) {
+	.wrap {
+		height: 59vh;
+	}
+
+	.image {
+		height: 25vh;
+	}
+}
+
+@media screen and (min-width: 2561px) {
+	.wrap {
+		width: 25%;
+	}
+}

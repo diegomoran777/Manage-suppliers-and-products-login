@@ -1,0 +1,35 @@
+<!--Login form-->
+<div class="containerForm">
+    <div class="rounded wrap">
+        <div class="image">
+            <div class="title">
+                <span>Login</span>
+            </div>
+        </div>
+        <form #userForm = "ngForm" (ngSubmit)="validateLogin(userForm)">
+         <div class="form-group">
+           <label class="userLabel">Usuario</label>
+           <input [class.is-invalid]="userName.invalid && userName.touched"
+                  required
+                  #userName="ngModel"
+                  ngModel 
+                  type="text" 
+                  placeholder="Enter user" 
+                  name="userName">
+         </div>
+         <div class="form-group">
+           <label class="passLabel">Password</label>
+           <input [class.is-invalid]="password.invalid && password.touched"
+                  required
+                  #password="ngModel"
+                  ngModel 
+                  type="password" 
+                  placeholder="Enter password" 
+                  name="password" 
+                  autocomplete="on">
+         </div>
+         <button type="submit" class="btn">Submit</button>
+       </form>
+    </div>
+</div>
+<!-- Login form ends-->
