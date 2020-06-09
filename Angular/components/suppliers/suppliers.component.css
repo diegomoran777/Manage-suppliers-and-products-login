@@ -1,0 +1,129 @@
+label {
+	color: #c1c1c1;
+	margin-bottom: auto;
+}
+
+.mail {
+	text-decoration: none;
+	color: rgba(220, 205, 157, 0.986); 
+}
+
+.mail:hover {
+	color: rgba(252, 231, 169, 0.986);
+}
+
+.bg-dark {
+	box-shadow: 0 1px 9px 5px rgba(0,0,0,0.3);
+}
+
+#rwd-table th {
+	text-align: center;
+}
+
+#rwd-table tr {
+	text-align: center;
+}
+
+#spinnersContent {
+	height: 62vh;
+}
+
+.spinnersSubContent {
+	position: absolute;
+    top: 58%;
+	left: 34%;
+	margin-left: 6%;
+    margin-right: 6%;
+}
+
+.loadText {
+	position: absolute;
+    top: 64%;
+    left: 36%;
+    margin-left: 6%;
+}
+
+#bId {
+	border-radius: 5px 14px 1px 1px ;
+}
+
+#addp {
+	margin-left: 3%;
+	border-radius: 5px 14px 1px 1px ;
+}
+
+#bName {
+	border-radius: 5px 14px 1px 1px ;
+}
+
+#table {
+	height: 50vh; 
+	background-color: #576067;
+	box-shadow: 9px 3px 9px 2px #474e54; 
+	overflow-y: auto;
+	margin-left: 3%;
+}
+
+.title {
+	font-weight: bold;
+	font-size: 187%;
+	color: white;
+	margin-left: 3%;
+	text-shadow: 4px -1px 4px #000000;
+}
+
+#tableParams { 
+	background-color: #576067;
+	box-shadow: 9px 3px 9px 2px #474e54; 
+	margin-left: 3%;	
+}
+
+#supplierName {
+	width: 50%;
+}
+
+#exNumber {
+	width: 50%;
+}
+
+@media screen and (max-width: 396px) { 
+	.loadText {
+		left: 32%;
+	}
+
+	.spinnersSubContent {
+		left: 30%;
+	}
+
+}
+
+@media (max-width: 575.98px) { 
+	
+	#tdExNumber {
+		border: none;
+	}
+
+	#supplierName {
+		width: 50%;
+	}
+	
+	#exNumber {
+		width: 50%;
+	}
+}
+
+@media screen and (min-width: 2200px) {
+	#supplierName {
+		width: 39%;
+	}
+
+	#exNumber {
+		width: 38%;
+	}
+}
+
+@media (min-height: 1000px) {
+	.loadText {
+		top: 62%;
+	}
+}

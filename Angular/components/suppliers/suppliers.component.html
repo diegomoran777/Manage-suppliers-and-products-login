@@ -1,0 +1,168 @@
+<app-nav></app-nav>
+<!--Begin title-->
+<div class="row">
+    <div class="col-md-12 d-flex justify-content-start">
+        <strong class="title">Proveedores</strong>
+    </div>	
+</div>
+<!--Ends title-->
+
+<!--Panel button-->
+<div class="row">
+    <!--Button add suplier-->
+    <div class="col-md-12 d-flex justify-content-start">
+        <button id="addp" 
+                type="button" 
+                class="btn btn-dark border border-secondary btn-sm mt-2" 
+                routerLink = "/supplier-form" 
+                [queryParams]="{supplierId: ''}">
+                Agregar proveedor
+        </button>
+
+        <!-- Button search for id -->
+        <button id="bId" 
+                type="button" 
+                class="btn btn-dark border border-secondary btn-sm mt-2" 
+                data-toggle="modal" 
+                data-target="#formId">
+                Buscar  por id
+        </button>
+
+        <button id="bId" 
+                type="button" 
+                class="btn btn-dark border border-secondary btn-sm mt-2" 
+                (click)="getSuppliers()">
+                Todos los proveedores
+        </button>
+
+        <!--Modal form-->
+        <div class="modal fade bg" id="formId" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div [hidden]="showForm" class="modal-content bg-dark text-white">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Buscar proveedor por id</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span class="text-white" aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form #supplierForm = "ngForm" (ngSubmit)="getSupplierById(supplierForm)">
+                            <div class="form-group">
+                                <label for="supplierId">Id del proveedor</label>
+                                <input ngModel type="number" class="form-control form-control-sm" id="supplierId" name="supplierId">
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-sm mr-2">Buscar</button>
+                            <button #closeModal type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
+                        </form>
+                    </div>
+                </div>
+                <!--Spinners loading begin-->
+                <div *ngIf="showSpinners" class="align-self-center" role="status" id="spinnersContent">
+                    <div class="spinnersSubContent">
+                        <span class="spinner-grow text-primary float-left"></span>
+                        <span class="spinner-grow text-warning float-left"></span>
+                        <span class="spinner-grow text-danger"></span>
+                    </div>
+                    <div *ngIf="showSpinners" class="loadText">
+                        <span class="d-flex justify-content-center text-white">Searching...</span>
+                    </div>
+                </div>
+                <!--Spinners loading ends-->
+            </div>
+        </div>
+        <!--Ends modal form-->
+    </div>
+    <!--Ends col-->
+</div>
+<!--Ends row-->
+
+<!--Begin row-->
+<!--Begin panel search-->
+<div class="row">
+    <div class="col-md-11" id="tableParams">
+        <table class="table table-sm table-dark m-auto">
+            <tbody>
+                <tr class="row m-auto">
+                    <td class="col-sm-5" id="supplierN">
+                        <label for="supplierName">Nombre del proovedor</label>
+                        <input (keyup)="getSupplierByName($event)" type="text" class="form-control form-control-sm" id="supplierName" name="supplierName">
+                    </td>
+                    <td class="col-sm-5" id="tdExNumber">
+                        <label for="numberExtern">Nro externo</label>
+                        <input (keyup)="getSupplierByNumber($event)" type="text" class="form-control form-control-sm" id="exNumber" name="numberExtern">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>	
+</div>
+<!--Ends panel search-->
+<!--Ends row-->
+
+<!--Begin row-->
+<!--Begin table suplier-->
+<div class="row">
+    <div class="col-md-11" id="table">
+        <table class="table table-sm table-striped table-dark" id="rwd-table">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Nro externo</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Direccion</th>
+                    <th scope="col">Telefono</th>
+                    <th scope="col">Mail</th>
+                    <th scope="col">Modificar</th>
+                    <th scope="col">Eliminar</th>
+                    <th scope="col">Agregar Producto</th>
+                    <th scope="col">Productos</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let supplier of suppliers">
+                    <td class="font-weight-bold">{{supplier.id}}</td>
+                    <td>{{supplier.numberExtern}}</td>
+                    <td>{{supplier.name}}</td>
+                    <td>{{supplier.address}}</td>
+                    <td>{{supplier.telephone}}</td>
+                    <td>
+                        <a class="mail" [href]="'mailto:' + supplier.email"><i class="fas fa-envelope"></i></a>
+                    </td>
+                    <td>
+                        <a class="btn btn-sm btn-warning text-dark" 
+                           routerLink = "/supplier-form" 
+                           [queryParams]="{supplierId: supplier.id}">
+                           <i class="fas fa-highlighter"></i> 
+                           Modificar
+                        </a>
+                    </td>
+                    <td>
+                        <a class="btn btn-sm btn-danger" 
+                           (click)= "deleteSupplier(supplier.id)">
+                           <i class="far fa-trash-alt"></i> 
+                           Eliminar
+                        </a>
+                    </td>
+                    <td>
+                        <a class="btn btn-sm btn-primary text-white" 
+                           routerLink = "/product-form" 
+                           [queryParams]="{supplierId: supplier.id, productId: ''}">
+                           <i class="fas fa-angle-double-down"></i> 
+                           Add productos
+                        </a>
+                    </td>
+                    <td>
+                        <a class="btn btn-sm btn-primary text-white" 
+                           routerLink = "/products" 
+                           [queryParams]="{supplierId: supplier.id , productsById: true}">
+                           <i class="fas fa-list"></i> 
+                           Productos
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<!--Ends table suplier-->
+<!--Ends row-->
