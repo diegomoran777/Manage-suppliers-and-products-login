@@ -1,0 +1,97 @@
+<app-nav></app-nav>
+
+<!--Begin title-->
+<div class="row">
+    <div class="col-md-12 d-flex justify-content-start">
+        <strong class="title">Usuarios</strong>
+    </div>	
+</div>
+<!--Ends title-->
+
+<!--Begin row-->
+<!--Begin panel search-->
+<div class="row">
+    <div class="col-sm-9 col-md-9 col-lg-9 col-xl-9 bg-dark" id="tableParams">
+        <table class="table table-sm table-dark m-auto">
+            <tbody>
+                <tr class="row m-auto">
+                    <td class="col-sm-5">
+                        <label for="userName">Nombre de usuario</label>
+                        <input (keyup)="getUsersByUserName($event)" 
+                               type="text" 
+                               class="form-control form-control-sm" 
+                               id="userName" 
+                               name="userName">
+                    </td>
+                    <td class="col-sm-5" id="tdRole">
+                        <label for="role">Role</label><br>
+                        <select class="custom-select custom-select-sm" 
+                                id="role" 
+                                name="role"
+                                (change)="getUsersByRole($event)">
+                                <option value=""></option>
+                                <option value="ADMIN">ADMIN</option>
+                                <option value="USER">USER</option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>	
+</div>
+<!--Ends panel search-->
+<!--Ends row-->
+
+<!--Begin row and col-->
+<div class="row">
+    <div class="col-sm-9 col-md-9 col-lg-9 col-xl-9 bg-dark" id="list">
+        <!--Begin list-->
+        <div class="alert alert-primary" role="alert" *ngFor="let user of users">
+            <i *ngIf="user.role === 'USER' && user.userName !== 'gustavo777'" 
+               class="fas fa-user-circle">
+            </i>
+            <i *ngIf="user.role === 'ADMIN' && user.userName !== 'gustavo777'" 
+               class="fas fa-user-ninja">
+            </i>
+            <i *ngIf="user.userName === 'gustavo777'" 
+               class="fas fa-poo">
+            </i>
+            <small class="ml-2" id="user">{{user.userName}}</small>
+
+            <!--Begin options-->
+            <div class="d-flex flex-row-reverse bd-highlight float-right">
+                <div class="align-self-end">
+                    <button [disabled]="user.userName === currentUser" 
+                            class="delete" 
+                            (click)="deleteUser(user.id, user.userName)">
+                        <i class="far fa-trash-alt ml-2" 
+                           [ngClass]="{trashIcon: user.userName !== currentUser}">
+                        </i>
+                    </button>
+                </div>
+                <div class="align-self-end">
+                    <a id="update"
+                       routerLink = "/login-form" 
+                       [queryParams]="{userName: user.userName}">
+                       <i class="fas fa-highlighter" id="updateIcon"></i>
+                    </a>
+                </div>
+                <div class="align-self-end custom-control custom-switch">
+                    <input [disabled]="user.userName === currentUser"
+                           [value]="user.userName" 
+                           (change)="changeRole($event)" 
+                           type="checkbox" 
+                           class="custom-control-input" 
+                           [id]="user.userName">
+                    <label class="custom-control-label" 
+                           [for]="user.userName" id="checkRole">
+                    </label>
+                </div>
+            </div>
+            <!--Options ends-->
+        </div>
+        <!--List ends-->
+    </div>
+</div>
+<!--Row and col ends-->
+

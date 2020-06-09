@@ -1,0 +1,105 @@
+label {
+	color: #c1c1c1;
+	margin-bottom: auto;
+}
+
+.title {
+	font-weight: bold;
+	font-size: 187%;
+	color: white;
+	margin-left: 12%;
+	text-shadow: 4px -1px 4px #000000;
+}
+
+.alert {
+	margin-top: 1%;
+	padding: .35rem 1.25rem;
+}
+
+.delete {
+	cursor: pointer;
+	border: none;
+    background-color: #fffafa00;
+	
+}
+
+#updateIcon {
+	color: #004085;
+}
+
+#updateIcon:hover {
+	color: #6b74de;
+}
+
+.trashIcon:hover {
+	color: #fb1818dc;
+}
+
+.trashIcon {
+	color: #004085;
+}
+
+#update {
+	cursor: pointer;
+}
+
+#checkRole {
+	cursor: pointer;
+}
+
+#tableParams { 
+	box-shadow: 9px 3px 9px 2px #474e54; 
+	margin: auto;	
+}
+
+#list {
+    height: 66vh; 
+	background-color: #576067;
+	box-shadow: 9px 3px 9px 2px #474e54; 
+	overflow-y: auto;
+	margin: auto;
+}
+
+#user {
+    font-weight: bold;
+}
+
+#userName {
+	width: 50%;
+}
+
+#role {
+	width: 50%;
+}
+
+@media screen and (max-width: 575.98px) { 
+	.title {
+		margin-left: 1%;
+	}
+
+	.alert {
+		margin-left: 1%;
+	}
+
+	#list {
+		height: 56vh;
+	}
+
+	#tdRole {
+		border: none;
+	}
+}
+
+ @media screen and (max-width: 1550px) {
+	#list {
+		height: 66vh;
+	}
+ }
+ 
+ @media screen and (min-width: 1550px) {
+	.title {
+		margin-left: 12.3%;
+	}
+ }
+ 
+ 
