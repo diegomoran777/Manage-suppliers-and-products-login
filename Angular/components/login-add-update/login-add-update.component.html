@@ -1,0 +1,104 @@
+<app-nav></app-nav>
+<!--Begin row panel button-->
+<div *ngIf="showForm" class="row mt-3">
+    <div class="col-md-12 d-flex justify-content-start">
+        <button [disabled]="!allowedRole()"
+                id="userAdd" 
+                type="button" 
+                class="btn btn-dark border border-secondary btn-sm mt-2"
+                (click)="clearForm()">
+                Add
+        </button>
+        <button id="userUpdate" 
+                type="button" 
+                class="btn btn-dark border border-secondary btn-sm mt-2"
+                (click)="loadUsers()">
+                Update
+        </button>
+    </div>
+</div>
+<!--Ends row panel button-->
+
+<!--Begin row form-->
+<div class="row">
+    <div class="col-md-12">
+        <div *ngIf="showSpinner" class="sk-circle">
+            <div class="sk-circle1 sk-child"></div>
+            <div class="sk-circle2 sk-child"></div>
+            <div class="sk-circle3 sk-child"></div>
+            <div class="sk-circle4 sk-child"></div>
+            <div class="sk-circle5 sk-child"></div>
+            <div class="sk-circle6 sk-child"></div>
+            <div class="sk-circle7 sk-child"></div>
+            <div class="sk-circle8 sk-child"></div>
+            <div class="sk-circle9 sk-child"></div>
+            <div class="sk-circle10 sk-child"></div>
+            <div class="sk-circle11 sk-child"></div>
+            <div class="sk-circle12 sk-child"></div>
+          </div>
+        <!--Begin container-->
+        <div *ngIf="showForm" class="wrapForm rounded">
+            <div class="titleContainer">
+                <span>User</span>
+            </div>
+            <!--Begin form for add and update-->
+            <form #userForm = "ngForm" (ngSubmit)="updateAddUser(userForm)">
+                <input [(ngModel)]="user.id" type="hidden" name="userId">
+                <div class="form-group">
+                    <input [(ngModel)]="user.userName"
+                           [class.is-invalid]="userName.invalid && userName.touched"
+                           required
+                           #userName="ngModel" 
+                           class="form-control" 
+                           type="text" 
+                           name="userName" 
+                           placeholder="Usuario">
+                    <small class="text-warning"
+                            *ngIf="userName.invalid && userName.touched">
+                            Usuario requerido
+                    </small>
+                </div>
+                <div class="form-group">
+                    <input [(ngModel)]="user.password"
+                           [class.is-invalid]="userPass.invalid && userPass.touched"
+                           required
+                           #userPass="ngModel" 
+                           class="form-control" 
+                           type="password" 
+                           name="password" 
+                           placeholder="Password"
+                           autocomplete="on">
+                    <small class="text-warning"
+                            *ngIf="userPass.invalid && userPass.touched">
+                            Usuario requerido
+                    </small>
+                </div>
+                <div class="form-group">
+                    <input [(ngModel)]="user.repeatPass"
+                           [class.is-invalid]="repeatPass.invalid && repeatPass.touched"
+                           required
+                           #repeatPass="ngModel" 
+                           class="form-control" 
+                           type="password" 
+                           name="repeatPass" 
+                           placeholder="Repetir password"
+                           autocomplete="on">
+                    <small class="text-warning"
+                            *ngIf="repeatPass.invalid && repeatPass.touched">
+                            Usuario requerido
+                    </small>
+                    <small class="text-warning"
+                            *ngIf="user.password !== user.repeatPass">
+                            Los password no son iguales
+                    </small>
+                </div>
+                <input [(ngModel)]="user.role" type="hidden" name="role">
+                <button class="btn buttonSubmit" type="submit">Enviar</button>
+            </form>
+            <!--Ends form-->
+        </div>
+        <!--Ends container-->
+    </div>
+</div>
+<!--Ends row form-->
+
