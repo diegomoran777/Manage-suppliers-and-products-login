@@ -45,6 +45,7 @@ public class GeneralService implements IService {
 	@Override 
 	public Set<String> getAllTypes() {
 		this.types.getTypes().clear();
+		//return repoProduct.findAll().stream().map(p -> p.getType()).collect(Collectors.toSet());
 		repoProduct.findAll().forEach(product -> this.types.getTypes().add(product.getType())); 
 		return this.types.getTypes();
 	}
@@ -57,6 +58,7 @@ public class GeneralService implements IService {
 	@Override 
 	public Set<String> getTypesBySupplier(long supplierId) {
 		this.types.getTypes().clear();
+		//return repoProduct.findBySupplierId(supplierId).stream().map(p -> p.getType()).collect(Collectors.toSet());
 		repoProduct.findBySupplierId(supplierId).forEach(product -> this.types.getTypes().add(product.getType()));
 		return this.types.getTypes();
 	}
