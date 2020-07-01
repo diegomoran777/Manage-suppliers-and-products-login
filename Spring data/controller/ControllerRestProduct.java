@@ -26,7 +26,7 @@ import com.diego.spring.backend.service.GeneralService;
 public class ControllerRestProduct {
 
 	@Autowired
-	GeneralService service;
+	IService service;
 	
 	/**
 	 * Get all products
