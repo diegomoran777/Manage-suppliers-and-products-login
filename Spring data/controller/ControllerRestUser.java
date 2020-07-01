@@ -25,7 +25,7 @@ import com.diego.spring.backend.service.GeneralService;
 public class ControllerRestUser {
 
 	@Autowired
-	GeneralService service;
+	IService service;
 	
 	
 	/**
