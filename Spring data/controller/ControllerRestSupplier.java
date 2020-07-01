@@ -26,7 +26,7 @@ public class ControllerRestSupplier {
 	
 	
 	@Autowired
-	GeneralService service;
+	IService service;
 	
 	/**
 	 * Get all suppliers
