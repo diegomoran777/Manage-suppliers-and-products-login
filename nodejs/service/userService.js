@@ -1,54 +1,53 @@
-let User = require('./../model/user');
+const User = require('./../model/user');
 
-class UserService {
 
-    findAllUsers(res) {
-        User.find((err, users) => {
+    const findAllUsers = async (res) => {
+        await User.find((err, users) => {
             if(err) res.send(err);
             res.send(users);
         });
     }
 
-    findUserByUserName(req, res) {
+    const findUserByUserName = async (req, res) => {
         let userName = req.body.userName;
         console.log(userName);
-        User.findOne({userName: userName}, (err, user) => {
+        await User.findOne({userName: userName}, (err, user) => {
             if(err) res.send(err);
             res.send(user);
         });
     }
 
-    findUser(req, res) {
+    const findUser = async (req, res) => {
         let userName = req.body.userName;
         console.log(userName);
-        User.findOne({userName: userName}, (err, user) => {
+        await User.findOne({userName: userName}, (err, user) => {
             if(err) res.send(err);
             res.send(new Array(user));
         });
     }
 
-    deleteUserById(req, res) {
+    const deleteUserById = async (req, res) => {
         let userId = req.params.id;
-        User.deleteOne({_id: userId}, (err) => {
+        await User.deleteOne({_id: userId}, (err) => {
             if(err) res.send(false);
             res.send(true);
         });
     }
 
-    saveUpdateUser(req, res) {
+    const saveUpdateUser = async (req, res) => {
         if(req.body.userId === "") {
             let user = new User({
                 userName: req.body.userName,
                 password: req.body.password,
                 allowedRole: req.body.allowedRole
             });
-            user.save((err, response) => {
+            await user.save((err, response) => {
                 if(err) res.send(err);
                 console.log(err);
                 res.send(user); 
             });
         } else {
-            User.findByIdAndUpdate(req.body.userId, {$set: req.body}, (err, model) => {
+            await User.findByIdAndUpdate(req.body.userId, {$set: req.body}, (err, model) => {
                 console.log(req.body);
                 if(err) res.send(err);
                 res.send(model);
@@ -56,18 +55,18 @@ class UserService {
         } 
     }
 
-    existsUserByUserName(req, res) {
+    const existsUserByUserName = async (req, res) => {
         let userName = req.body.userName;
-        User.exists({userName: userName}, (err, response) => {
+        await User.exists({userName: userName}, (err, response) => {
             if(err) res.send(err);
             res.send(response);
         });
     }
 
-    getUsersByParams(req, res) {
+    const getUsersByParams = async (req, res) => {
         let userName = req.body.userName;
         let role = req.body.role;
-        User.find({
+        await User.find({
             userName: {$regex: userName, $options: 'i'}, 
             role: {$regex: role, $options: 'i'}}, 
             (err, users) => {
@@ -75,6 +74,13 @@ class UserService {
                 res.send(users);
         });
     }
-}
 
-module.exports = UserService;
+module.exports = {
+    findAllUsers,
+    findUserByUserName,
+    findUser,
+    deleteUserById,
+    saveUpdateUser,
+    existsUserByUserName,
+    getUsersByParams
+}

@@ -1,35 +1,34 @@
-let express = require('express');
-let router = express.Router();
-let mongoose = require('../config/connection');
-let ProductService = require('./../service/productService');
+const express = require('express');
+const router = express.Router();
+const mongoose = require('../config/connection');
+const ProductService = require('./../service/productService');
 
-const service = new ProductService();
 
 /* GET Get all products */
-router.get('/products', (req, res, next) => service.findAllProducts(res));
+router.get('/products', ProductService.findAllProducts);
 
 /* POST Get products by id */
-router.post('/getproductid', (req, res, next) => service.findProductById(req, res));
+router.post('/getproductid', ProductService.findProductById);
 
 /* POST Get products by id */
-router.post('/get-product', (req, res, next) => service.findProduct(req, res));
+router.post('/get-product', ProductService.findProduct);
 
 /* DELETE Delete products by id */
-router.delete('/:id', (req, res, next) => service.deleteProductById(req, res));
+router.delete('/:id', ProductService.deleteProductById);
 
 /* POST Add or Update product */
-router.post('/save-update', (req, res, next) => service.saveUpdateProduct(req, res));
+router.post('/save-update', ProductService.saveUpdateProduct);
 
 /* GET Get products by supplierId */
-router.get('/bysupplierid/:id', (req, res, next) => service.findProductsBySupplierId(req, res));
+router.get('/bysupplierid/:id', ProductService.findProductsBySupplierId);
 
 /* POST Get products by params */
-router.post('/search-by-paramsid', (req, res, next) => service.getProductByPrams(req, res));
+router.post('/search-by-paramsid', ProductService.getProductByPrams);
 
 /* GET Get all types */
-router.get('/types', (req, res, next) => service.getAllTypes(res));
+router.get('/types', ProductService.getAllTypes);
 
 /* GET Get types by id */
-router.get('/types/:id', (req, res, next) => service.getTypesBySupplier(req, res));
+router.get('/types/:id', ProductService.getTypesBySupplier);
 
 module.exports = router;

@@ -1,17 +1,16 @@
-let Types = require('../dto/types');
-let Product = require('../model/product');
+const Types = require('../dto/types');
+const Product = require('../model/product');
 
-class ProductService {
     types = new Types();
 
-    findAllProducts(res) {
-        Product.find((err, products) => {
+    const findAllProducts = async (res) => {
+        await Product.find((err, products) => {
             if(err) res.send(err);
             res.send(products);
         });
     }
 
-    saveUpdateProduct(req, res) {
+    const saveUpdateProduct = async (req, res) => {
         if(req.body.productId === "") {
             let product = new Product({
                 numberExtern: req.body.numberExtern,
@@ -22,13 +21,13 @@ class ProductService {
                 supplierName: req.body.supplierName, 
                 supplierId: req.body.supplierId
             });
-            product.save((err, response) => {
+            await product.save((err, response) => {
                 if(err) res.send(err);
                 console.log(response);
                 res.send(product);
             });
         } else {
-            Product.findByIdAndUpdate(req.body.productId, {$set: req.body}, (err, model) => {
+            await Product.findByIdAndUpdate(req.body.productId, {$set: req.body}, (err, model) => {
                 console.log(req.body);
                 if(err) res.send(err);
                 res.send(model);
@@ -36,63 +35,63 @@ class ProductService {
         }
     }
 
-    getAllTypes(res) {
+    const getAllTypes = async (res) => {
         this.types.clearTypes();
-        Product.find((err, products) => {
+        await Product.find((err, products) => {
             if(err) return err;
             products.forEach( product => this.types.getTypes().add(product.typeProduct));
-          });
+            });
         res.send(this.types.getTypes());
     }
 
-    getTypesBySupplier(req, res) {
+    const getTypesBySupplier = async (req, res) => {
         let supplierId = req.params.id;
         this.types.clearTypes();
-        Product.find({supplierId: supplierId}).exec((err, products) => {
+        await Product.find({supplierId: supplierId}).exec((err, products) => {
             if (err) return err;  
             products.forEach( product => this.types.getTypes().add(product.typeProduct));
         });
         res.send(this.types.getTypes());
     }
 
-    deleteProductById(req, res) {
+    const deleteProductById = async (req, res) => {
         let productId = req.params.id;
-        Product.deleteOne({_id: productId}, (err) => {
+        await Product.deleteOne({_id: productId}, (err) => {
             if(err) res.send(false);
             res.send(true);
         });
     }
 
-    findProductById(req, res) {
+    const findProductById = async (req, res) => {
         let productId = req.body.productId;
-        Product.findOne({_id: productId}, (err, product) => {
+        await Product.findOne({_id: productId}, (err, product) => {
             if(err) res.send(err);
             res.send(new Array(product));
         });
     }
 
-    findProduct(req, res) {
+    const findProduct = async (req, res) => {
         let productId = req.body.productId;
-        Product.findOne({_id: productId}, (err, product) => {
+        await Product.findOne({_id: productId}, (err, product) => {
             if(err) res.send(err);
             res.send(product);
         });
     }
 
-    findProductsBySupplierId(req, res) {
+    const findProductsBySupplierId = async (req, res) => {
         let supplierId = req.params.id;
-        Product.find({supplierId: supplierId}).exec((err, products) => {
+        await Product.find({supplierId: supplierId}).exec((err, products) => {
             if(err) res.send(err);
             res.send(products);
         });
     }
 
-    getProductByPrams(req, res) {
+    const getProductByPrams = async (req, res) => {
         let id = req.body.supplierId;
         let nameProduct =  req.body.searchByName;
         let numberExternProduct = req.body.searchByNumberExtern;
         let typeProduct = req.body.searchByType;
-        Product.find({
+        await Product.find({
             supplierId: {$regex: id},
             name: {$regex: nameProduct, $options: 'i'}, 
             numberExtern: {$regex: numberExternProduct, $options: 'i'},
@@ -103,6 +102,15 @@ class ProductService {
         });
     }
 
-}
+module.exports = {
+    findAllProducts,
+    saveUpdateProduct,
+    getAllTypes,
+    getTypesBySupplier,
+    deleteProductById,
+    findProductById,
+    findProduct,
+    findProductsBySupplierId,
+    getProductByPrams
 
-module.exports = ProductService;
+}
